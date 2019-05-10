@@ -1292,6 +1292,7 @@ static int ext4_ext_grow_indepth(handle_t *handle, struct inode *inode,
 	struct ext4_super_block *es = EXT4_SB(inode->i_sb)->s_es;
 	int err = 0;
 	size_t ext_size = 0;
+
 	/* Try to prepend new index to old one */
 	if (ext_depth(inode))
 		goal = ext4_idx_pblock(EXT_FIRST_INDEX(ext_inode_hdr(inode)));
@@ -1316,6 +1317,7 @@ static int ext4_ext_grow_indepth(handle_t *handle, struct inode *inode,
 		goto out;
 	}
 
+	ext_size = sizeof(EXT4_I(inode)->i_data);
 	/* move top-level index/leaf into new block */
 	ext_size = sizeof(EXT4_I(inode)->i_data);
 	memmove(bh->b_data, EXT4_I(inode)->i_data, ext_size);
